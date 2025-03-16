@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mummy</title>
+    <link rel="icon" type="image/png" href="love.png">
+    <style>
+        body {
+            background-color: pink;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: darkpink;
+            overflow: hidden;
+            position: relative;
+        }
+        .page {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        button {
+            background-color: rgb(255, 0, 191);
+            color: darkpink;
+            padding: 10px 20px;
+            border: 2px solid darkpink;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+        .falling {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            from {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="page1" class="page active">
+        <h1>Hi Mummy</h1>
+        <button onclick="nextPage()">Next</button>
+    </div>
+    
+    <div id="page2" class="page">
+        <h1>Do you love me, Mummy?</h1>
+        <button onclick="startFall('heart')">Yes</button>
+        <button onclick="startFall('sad')">No</button>
+    </div>
+
+    <script>
+        function nextPage() {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.add('active');
+        }
+
+        function startFall(type) {
+            for (let i = 0; i < 30; i++) {
+                let element = document.createElement('div');
+                element.classList.add('falling');
+                element.style.left = Math.random() * window.innerWidth + 'px';
+                element.style.animationDuration = (2 + Math.random() * 3) + 's';
+                
+                if (type === 'heart') {
+                    element.style.backgroundImage = "url('heart.png')";
+                } else {
+                    element.style.backgroundImage = "url('sad.png')";
+                }
+                
+                document.body.appendChild(element);
+                setTimeout(() => element.remove(), 3000);
+            }
+        }
+    </script>
+</body>
+</html>
